@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="style.css" rel="stylesheet" />
+</head>
+<body>
+
+    <h1>Amicable Numbers Calculator</h1>
+    <h2>- How to use -</h2>
+    <p>Enter two numbers and press the button!</p>
+
+    <input type="text" id="n1"></input><br><br>
+    <input type="text" id="n2"></input><br><br>
+
+    <button onclick="calc()">Calculate amicability</button>
+
+    <div><h3 id="result"></h3></div>
+
+</body>
+
+
+<script language="javascript">
+
+/*
+* Purpose: calculates the amicability of two numbers 
+*/
+function calc()
+{
+    var n1 = document.getElementById("n1").value;
+    var n2 = document.getElementById("n2").value;
+
+    var are_amicable = false;
+
+    var factors_n1 = find_factors(n1);
+    var factors_n2 = find_factors(n2);
+
+    var sum_n1 = find_sum(factors_n1);
+    var sum_n2 = find_sum(factors_n2);
+
+    if (sum_n1 == n2 && sum_n2 == n1) {
+        are_amicable = true;
+    }
+
+    if(are_amicable) {
+        document.getElementById("result").innerHTML = "The numbers: " + n1 + " and " + n2 + " are amicable" ;
+    } else {
+        document.getElementById("result").innerHTML = "The numbers: " + n1 + " and " + n2 + " are not amicable" ;
+    }
+
+    alert("Factors of " + n1 + ": " + factors_n1.join(" - ") + "\r\n" + "Factors of " + n2 + ": " + factors_n2.join(" - "));
+}
+
+/*
+* Purpose: determines whether i is a factor of number 
+*/
+function isAFactor(i, number)
+{
+    if(number % i == 0) {
+        return true;
+    } else {
+        return false; 
+    }
+}
+
+/*
+* Purpose: finds the factors of a given number and 
+*          returns an array storing all the factors 
+*/
+function find_factors(number)
+{
+    var temp_factors = []; 
+    for(i = 0; i < number; i++) {
+        if (isAFactor(i, number)) {
+            temp_factors.push(i);
+        }
+    }
+    return temp_factors;
+}
+
+/*
+* Purpose: finds the sum of an array of numbers and returns the sum
+*/
+function find_sum(array_of_numbers) 
+{
+    var sum = array_of_numbers.reduce(add, 0);
+    return sum;
+}
+
+/*
+* Purpose: adds two given numbers together
+*/
+function add(curr_sum, a)
+{
+    return curr_sum + a;
+}
+
+</script>
+</html>
